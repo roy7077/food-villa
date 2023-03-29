@@ -1,73 +1,54 @@
+import restaurantList  from "./constants";
+import Card from "./Card";
+import "../App.css"
+import { useState } from "react";
 
-//-----------body part-----------------//
-import '../App.css';
+function filterData(searchText, restaurants) {
+  //console.log(restaurants)
+  const filterData = restaurants.filter((restaurant) =>
+    restaurant?.data?.data?.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+  return filterData;
+}
 
-const data={
-    Name:"New panna sweets",
-    img:"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/upm1vaopvuy5zhzhtkbq",
-    tags:["North indian","sweet chinese"],
-    rating:"4.5",
-    price:"250"
-  };
-  
-  const Card=({imgd})=>{
-    return(
-      <div className='card'>
-      <img alt="food-img" src={imgd}/>
-      <div className='about-food'>
-        <h3>{data.Name}</h3>
-        <h3>{data.tags.join(",")}</h3>
-        <h3>{data.rating} star</h3>
-        <h3>{data.price}</h3>
+// Body Component for body section: It contain all restaurant cards
+// We are mapping restaurantList array and passing JSON data to RestaurantCard component as props with unique key as index
+const Body = () => {
+  // useState: To create a state variable, searchText is local state variable
+  const [searchText, setSearchText] = useState("");
+  const [restaurants, setRestaurants] = useState(restaurantList);
+  return (
+    <>
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search a restaurant you want..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        ></input>
+        <button
+          className="search-btn"
+          onClick={() => {
+            // filter the data
+            const data = filterData(searchText, restaurants);
+            //console.log(data);
+            // update the state of restaurants list
+            setRestaurants(data);
+          }}
+        >
+          Search
+        </button>
       </div>
-   </div>
-    )
-  }
-  const Body=()=>{
-    return(
-      <div className='card-list'>
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/e685c41d65c08836c9fea128bdf2c164" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/a0j6qdb7yi3yjvi2jdun" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/f4a6db4d707152b765950d9bb4cd0f47" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/dmessz1bb5rguc5rqqqh" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/c6z7jwph8tuzt5d73obu" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/jrrxcxw1yvw9yitglfpt" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/znv9fpbtcac4pmutkscj" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/r3zzte9lskqd6x3t2t0u" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/laaljpr9acp0tmuspwbq" /> 
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/e685c41d65c08836c9fea128bdf2c164" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/a0j6qdb7yi3yjvi2jdun" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/f4a6db4d707152b765950d9bb4cd0f47" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/dmessz1bb5rguc5rqqqh" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/c6z7jwph8tuzt5d73obu" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/jrrxcxw1yvw9yitglfpt" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/znv9fpbtcac4pmutkscj" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/r3zzte9lskqd6x3t2t0u" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/laaljpr9acp0tmuspwbq" /> 
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/e685c41d65c08836c9fea128bdf2c164" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/a0j6qdb7yi3yjvi2jdun" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/f4a6db4d707152b765950d9bb4cd0f47" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/dmessz1bb5rguc5rqqqh" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/c6z7jwph8tuzt5d73obu" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/jrrxcxw1yvw9yitglfpt" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/znv9fpbtcac4pmutkscj" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/r3zzte9lskqd6x3t2t0u" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/laaljpr9acp0tmuspwbq" /> 
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/e685c41d65c08836c9fea128bdf2c164" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/a0j6qdb7yi3yjvi2jdun" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/f4a6db4d707152b765950d9bb4cd0f47" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/dmessz1bb5rguc5rqqqh" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/c6z7jwph8tuzt5d73obu" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/jrrxcxw1yvw9yitglfpt" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/znv9fpbtcac4pmutkscj" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/r3zzte9lskqd6x3t2t0u" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/laaljpr9acp0tmuspwbq" /> 
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/e685c41d65c08836c9fea128bdf2c164" /> 
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/r3zzte9lskqd6x3t2t0u" />
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/laaljpr9acp0tmuspwbq" /> 
-      <Card imgd="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/e685c41d65c08836c9fea128bdf2c164" /> 
+      <div className="card-list">
+        {restaurants.map((restaurant) => {
+          return (
+            <Card key={restaurant.data.id} resti={restaurant.data.data} />
+          );
+        })}
       </div>
-    )
-  }
+    </>
+  );
+};
 
 export default Body;
